@@ -38,3 +38,8 @@ sudo mount /dev/mcblk0p2 /mnt/new-boot-files
 sudo cp /mnt/new-boot/kernel7.img -/
 #
 #
+sudo cp arch/arm/boot/dts/*.dtb /boot/
+#
+sudo cp arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
+#
+
