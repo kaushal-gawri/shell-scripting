@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+git clone git@github.com:kaushal-gawri/usap-assignment-2
+#
+cd /usr/src
+#
+git clone --depth=1 https://github.com/raspberrypi/linux
+#
+sudo apt install raspberrypi-kernel-headers build-essential bc git wget bison flex libssl-dev make
+#
+cd linux
+#
+KERNEL=kernel7l
+#
+make bcm2711_defconfig
+#
+sudo apt-get install qt5-\*-dev
+#
+make menuconfig
+#
+#
+git cp usap-assignment-2/.config /usr/src/linux
+#
+make -j4 zImage modules dtbs
+#
+sudo make modules_install
+#
+sudo cp /boot/kernel7.img /tmp/
+#
+sudo mkdir /mnt/new-boot
+#
+sudo mkdir /mnt/new-boot-files
+#
+sudo mount /dev/mcblk0p1 /mnt/new-boot
+#
+sudo mount /dev/mcblk0p2 /mnt/new-boot-files
+#
+sudo cp /mnt/new-boot/kernel7.img -/
+#
+#
