@@ -1,0 +1,16 @@
+#!/bin/bash
+trap end_monitor -USR1
+
+function end_monitor()
+{
+	echo "Process Ends"
+	exit(0)
+}
+
+function read_status(time)
+{
+temp=$(vcgencmd measure_temp)
+echo '{time},{temp}
+sleep 5
+read_status(time+5)
+}
