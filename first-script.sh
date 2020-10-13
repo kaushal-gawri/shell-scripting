@@ -4,6 +4,7 @@
 trap end_monitor USR1 EXIT
 flag=1
 val=0
+nano kernel_performance_data
 end_monitor()
 {
 #	echo "Process Ends"
@@ -12,6 +13,7 @@ end_monitor()
 #	echo "Flag $flag"
 	exit 1
 }
+
 
 read_status()
 {
@@ -24,7 +26,8 @@ b=20
 #fi
 echo "Completed if"
 temp=$(vcgencmd measure_temp)
-cat >> newFile.txt <<EOF
+#nano kernel_performance_data
+cat >> kernel_performance_data <<EOF
 $1	$temp
 EOF
 sleep 1
