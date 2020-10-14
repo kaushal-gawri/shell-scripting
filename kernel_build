@@ -1,8 +1,11 @@
 #!/bin/bash
 #
+cd /home/kaushal-pi/Documents
+#
+#cd /usr/src
 git clone git@github.com:kaushal-gawri/usap-assignment-2
 #
-cd /usr/src
+#cd /usr/src
 #
 git clone --depth=1 https://github.com/raspberrypi/linux
 #
@@ -19,9 +22,28 @@ sudo apt-get install qt5-\*-dev
 make menuconfig
 #
 #
-git cp usap-assignment-2/.config /usr/src/linux
+sudo cp usr/src/usap-assignment-2/.config /usr/src/linux
+#
+#
+#change this to the github cloned directory
+#./home/kaushal-pi/usap-assignment-2/first-script.sh &
+cd ..
+cd usap-assignment-2
+./first-script.sh &
+pid=$!
+./second-monitor.sh &
+pid1=$!
+#
+cd ..
+cd linux
+#
 #
 make -j4 zImage modules dtbs
+#
+kill -s USR1 $pid
+#
+kill -s USR2 $pid1
+#
 #
 sudo make modules_install
 #
