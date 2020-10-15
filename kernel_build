@@ -1,6 +1,11 @@
 #!/bin/bash
+
 #
-cd /home/kaushal-pi/Documents
+DIR=/home/kaushal-pi/Documents
+#
+#
+#cd /home/kaushal-pi/Documents
+cd $DIR || exit
 #
 #cd /usr/src
 git clone git@github.com:kaushal-gawri/usap-assignment-2
@@ -11,9 +16,9 @@ git clone --depth=1 https://github.com/raspberrypi/linux
 #
 sudo apt install raspberrypi-kernel-headers build-essential bc git wget bison flex libssl-dev make
 #
-cd linux
+cd linux || exit
 #
-KERNEL=kernel7l
+verify KERNEL=kernel7l
 #
 make bcm2711_defconfig
 #
@@ -22,20 +27,23 @@ sudo apt-get install qt5-\*-dev
 make menuconfig
 #
 #
-sudo cp usr/src/usap-assignment-2/.config /usr/src/linux
+#sudo cp usr/src/usap-assignment-2/.config /usr/src/linux
+sudo cp $DIR/usap-assignment-2/.config $DIR/linux
 #
 #
 #change this to the github cloned directory
 #./home/kaushal-pi/usap-assignment-2/first-script.sh &
-cd ..
-cd usap-assignment-2
+#cd ..
+#cd usap-assignment-2
+cd $DIR/usap-assignment-2 || exit
 ./first-script.sh &
 pid=$!
 ./second-monitor.sh &
 pid1=$!
 #
-cd ..
-cd linux
+#cd ..
+#cd linux
+cd $DIR/linux || exit
 #
 #
 make -j4 zImage modules dtbs
