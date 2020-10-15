@@ -24,7 +24,7 @@ echo "$CPU_USAGE"
 curr=$( bc <<< "$CPU_USAGE" / $val )
 myVar=$( echo "scale=4; $curr" | bc )
 	sudo sh -c "echo input > /sys/class/leds/led0/trigger"
-	sleep $myVar 
+	sleep "$myVar" 
 	sudo sh -c "echo mmc0 > /sys/class/leds/led0/trigger"
 	sleep 1
 done
