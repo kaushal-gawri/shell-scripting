@@ -1,0 +1,18 @@
+.\" Manpage for second-monitor.sh
+.\" Contact s3777121@student.rmit.edu.au to correct issues
+.TH man 8 "14 October 2020" "1.0" "second-monitor.sh man page"
+.SH NAME
+second-monitor \- Uses a simple algorithm to trigger the green led on raspberry pi 4
+.SH SYNOPSIS
+Run as : ./second-monitor.sh
+.SH DESCRIPTION
+This is a man page documenting how the "second-monitor.sh" script works. Basically a simple function "trigger_LED" is used, invoked at the end of the script requiring no parameters as such, which start a while loop for a number of times to light up the led on the raspberry pi for a fraction of a second depending on the CPU usage at that very second. The loop is terminated when a USR2 signal is received from another script, responsible for running this script at first place. The time for the led to be switched on depends on the CPU usage at that second, say if the CPU usage is calculate to be 40%, the led will trigger for 40/100 of the second, which is then converted to decimal to give us 0.40 seconds, that is for that very second, the green led will be stay on for 0.40 seconds and then the next reading will be taken after another second. So, this cycle continues until the USR2 signal is sent using the "kill" command for the respective pid which is then trapped using "trap end_monitor USR2 EXIT" at the top of "second-monitor.sh". You are required to provide root password because the script tends to update few file in the root's directory. It will work flawlesly with the kernel_build, as root password is already provided. This can be tested using a dummy script that runs this script at the start, calculates it's pid, sleeps for say 20 seconds and then send the USR2 signal using kill for the respective pid. To enhance the testing process, you can also alter the CPU usage using "yes > /dev/null &"depending on the number of processors in your CPU. I followed the same method to actually see some difference in time duration of the led being lighten up. This script is solely written to be executed through "kernel_build.sh" as a part of assignment work for "UNIX Systems Administration and Programming" subject as part of university curriculum.
+.SH OPTIONS
+This does not takes any options.
+.SH SEE ALSO
+Other scripts: kernel_build.sh first-monitor-script.sh
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Kaushal Gawri - s3777121@student.rmit.edu.au
+ 

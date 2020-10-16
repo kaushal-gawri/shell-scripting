@@ -1,0 +1,19 @@
+.\" Manpage for kernel_build.
+.\" Contact s3777121@student.rmit.edu.au to fix bugs if occured
+.TH man 8 "14 October 2020" "1.0" "kernel_build man page"
+.SH NAME
+kernel_build \- build the kernel from scratch from the provided repository https://github.com/raspberry/linux
+.SH SYNOPSIS
+Run using :- ./kernel_build
+.SH DESCRIPTION
+kernel_build is a medium level kernel building script, helping the user in building the kernel from scratch available at https://github.com/raspberry/linux . The script uses general variable name conventions, with local variables specified for file directories, which can be updated as per user convenience. Before starting the build process, make sure you update the directory where you want to clone the "linux" from the given repository, already handled in the script. You can update the directory using any text editor, like using "vim" is a good choice.
+You don't need to have root privileges to run the script, given it is made executable using "chmod +x kernel_build.sh". Though you still might to provide the password for "root" during some of the process in compilation. During the kernel build, when a config menu is prompted, you can just "Exit" from it as the custom ".config" file will be used to configure the kernel, which is again already handled by the script. Also, once the first-monitoring script is ran from inside this "kernel_build.sh" script, a new file for "kernel_performance_data" would be created, if a prompt for the same is visible, you can just exit that using "Ctrl + X" and no changes are required to be made. No files are supposed to be edited on user end, just before the compilation, the "first-monitoring-script" will write the required data in "kernel_performance_data" and the "second-monitoring-script" will trigger the green led each second for a fraction of second depending on current CPU usage. At the end of compilation, the USR1 and USR2 signals are sent to respective scripts without the need of exiting the scripts using "Ctrl + X". After the kernel is compiled, the kernel7, which is idealy the last kernel installed will be backed up to the "tmp" directory. At the end of build process, the pi will be rebooted and you can "ssh" again to boot the custom build kernel. By this, the script execution is successfull and custom kernel will be build by now.
+.SH OPTIONS
+The kernel_build.sh script doesn't take any options.
+.SH SEE ALSO
+Other Scripts : ./first-monitor.sh ./second-monitor.sh
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Kaushal Gawri - s3777121@student.rmit.edu.au
+

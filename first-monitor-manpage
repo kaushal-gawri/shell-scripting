@@ -1,0 +1,18 @@
+.\" Manpage for first-monitor-script.sh
+.\" Contact s3777121@student.rmit.edu.au to correct any issues.
+.TH man 8 "14 October 2020" "1.0" "first-monitor-script man page"
+.SH NAME
+first-monitor-script \- Use vcgencmd to get information about performance of pi while compiling kernel.
+.SH SYNOPSIS
+Run as : ./first-monitor-script.sh
+.SH DESCRIPTION
+This is a script written to simplify the process of writing some data like temperature of your raspberry pi while compiling the kernel to a data file. This script takes the readings for each second and is finally terminated once a USR1 signal is sent from another script responsible for building the kernel. The script writes the data in tab delimited format with the first column being elapsed time measured in seconds followed by a tab. The next column specifies the CPU Temperature calculated using "vcgencmd" command, like "vcgencmd measure_temp". These two columns are further used to write a report about the performance of raspberry-pi 4 while compiling the kernel. After each recorded second, the script sleeps for 1 second before taking the next reading. A USR1 signal is trapped at the starting of the script, "trap end_monitor USR1 EXIT" ,which further invokes a function end_monitor responsible for stopping the script gracefully. A recursive function is used to write data to the file which is being invoked a second after the data is written. This function is invoked at the end of the script and a value is passed as argument, in this case 1 stating the readings will start from 1 second. To modify the time elapsed you can increase the time passed onto "sleep", for example "sleep 5" will let the script sleep for 5 seconds and the record the reading. It was required to see some gradual changes in the temperature and hence a time gap of "1 second" was chosen to get specific results. The script is stopped when a USR1 signal is sent from another script, which sends a USR1 signal using "kill" command for respective pid. This is how the respective script works and this script can be tested by making a demo script, applying a sleep for say 10 seconds after running "first-monito-script" and then sending a "USR1" signal. This script is solely created as a part of assignment for "UNIX System Administration and Programming" subject.
+.SH OPTIONS
+This script does not take any options
+.SH SEE ALSO
+Other Scripts: ./second-monitor.sh , kernel_build.sh
+.SH BUGS
+No Known Bugs.
+.SH AUTHOR
+Kaushal Gawri - s3777121@student.rmit.edu.au
+ 
